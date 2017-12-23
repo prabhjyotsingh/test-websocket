@@ -1,4 +1,4 @@
-package TooTallNate;
+package coinome;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;

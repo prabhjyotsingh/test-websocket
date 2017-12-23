@@ -1,4 +1,4 @@
-package TooTallNate;
+package coinome;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -10,7 +10,7 @@ import java.util.Map;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
-public class WebSocketTry2 {
+public class WebSocket {
 
   static Boolean isInit = false;
   static WebSocketClient mWs = null;

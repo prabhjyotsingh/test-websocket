@@ -1,4 +1,4 @@
-package TooTallNate;
+package coinome;
 
 import java.util.ArrayList;
 
