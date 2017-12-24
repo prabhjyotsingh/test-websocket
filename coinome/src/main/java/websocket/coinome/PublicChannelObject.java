@@ -1,4 +1,4 @@
-package coinome;
+package websocket.coinome;
 
 import java.util.ArrayList;
 

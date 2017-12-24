@@ -1,46 +1,26 @@
-package coinome;
+package websocket.koinex;
+
+import org.java_websocket.WebSocket;
+import org.java_websocket.WebSocketImpl;
+import org.java_websocket.drafts.Draft;
+import org.java_websocket.exceptions.*;
+import org.java_websocket.extensions.DefaultExtension;
+import org.java_websocket.extensions.IExtension;
+import org.java_websocket.framing.*;
+import org.java_websocket.handshake.*;
+import org.java_websocket.protocols.IProtocol;
+import org.java_websocket.protocols.Protocol;
+import org.java_websocket.util.Base64;
+import org.java_websocket.util.Charsetfunctions;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-import java.util.TimeZone;
-import org.java_websocket.WebSocket;
-import org.java_websocket.WebSocketImpl;
-import org.java_websocket.drafts.Draft;
-import org.java_websocket.exceptions.IncompleteException;
-import org.java_websocket.exceptions.InvalidDataException;
-import org.java_websocket.exceptions.InvalidFrameException;
-import org.java_websocket.exceptions.InvalidHandshakeException;
-import org.java_websocket.exceptions.LimitExedeedException;
-import org.java_websocket.exceptions.NotSendableException;
-import org.java_websocket.extensions.DefaultExtension;
-import org.java_websocket.extensions.IExtension;
-import org.java_websocket.framing.BinaryFrame;
-import org.java_websocket.framing.CloseFrame;
-import org.java_websocket.framing.Framedata;
-import org.java_websocket.framing.FramedataImpl1;
-import org.java_websocket.framing.TextFrame;
-import org.java_websocket.handshake.ClientHandshake;
-import org.java_websocket.handshake.ClientHandshakeBuilder;
-import org.java_websocket.handshake.HandshakeBuilder;
-import org.java_websocket.handshake.Handshakedata;
-import org.java_websocket.handshake.ServerHandshake;
-import org.java_websocket.handshake.ServerHandshakeBuilder;
-import org.java_websocket.protocols.IProtocol;
-import org.java_websocket.protocols.Protocol;
-import org.java_websocket.util.Base64;
-import org.java_websocket.util.Charsetfunctions;
+import java.util.*;
 
-public class MyDraft extends Draft {
+public class KoinexDraft extends Draft {
 
   /**
    * Attribute for the used extension in this draft
@@ -87,7 +67,7 @@ public class MyDraft extends Draft {
    *
    * @since 1.3.5
    */
-  public MyDraft() {
+  public KoinexDraft() {
     this(Collections.<IExtension>emptyList());
   }
 
@@ -97,7 +77,7 @@ public class MyDraft extends Draft {
    * @param inputExtension the extension which should be used for this draft
    * @since 1.3.5
    */
-  public MyDraft(IExtension inputExtension) {
+  public KoinexDraft(IExtension inputExtension) {
     this(Collections.singletonList(inputExtension));
   }
 
@@ -107,9 +87,9 @@ public class MyDraft extends Draft {
    * @param inputExtensions the extensions which should be used for this draft
    * @since 1.3.5
    */
-  public MyDraft(List<IExtension> inputExtensions) {
+  public KoinexDraft(List<IExtension> inputExtensions) {
     this(inputExtensions,
-        Collections.<IProtocol>singletonList(new Protocol("actioncable-v1-json")));
+        Collections.<IProtocol>singletonList(new Protocol("")));
   }
 
   /**
@@ -120,7 +100,7 @@ public class MyDraft extends Draft {
    * @param inputProtocols the protocols which should be used for this draft
    * @since 1.3.7
    */
-  public MyDraft(List<IExtension> inputExtensions, List<IProtocol> inputProtocols) {
+  public KoinexDraft(List<IExtension> inputExtensions, List<IProtocol> inputProtocols) {
     if (inputExtensions == null || inputProtocols == null) {
       throw new IllegalArgumentException();
     }
@@ -291,7 +271,7 @@ public class MyDraft extends Draft {
     for (IProtocol protocol : getKnownProtocols()) {
       newProtocols.add(protocol.copyInstance());
     }
-    return new MyDraft(newExtensions, newProtocols);
+    return new KoinexDraft(newExtensions, newProtocols);
   }
 
   @Override
@@ -726,8 +706,8 @@ public class MyDraft extends Draft {
   }
 
   @Override
-  public Draft.CloseHandshakeType getCloseHandshakeType() {
-    return Draft.CloseHandshakeType.TWOWAY;
+  public CloseHandshakeType getCloseHandshakeType() {
+    return CloseHandshakeType.TWOWAY;
   }
 
   @Override
@@ -751,7 +731,7 @@ public class MyDraft extends Draft {
       return false;
     }
 
-    MyDraft that = (MyDraft) o;
+    KoinexDraft that = (KoinexDraft) o;
 
     if (extension != null ? !extension.equals(that.extension) : that.extension != null) {
       return false;

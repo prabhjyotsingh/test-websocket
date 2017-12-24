@@ -1,0 +1,75 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building tem 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- exec-maven-plugin:1.6.0:java (default-cli) @ tem ---
+opened connection
+opened connection
+{type=welcome}
+{identifier={"channel":"PublicChannel"}, type=confirm_subscription}
+{identifier={"channel":"PublicChannel"}, message=[[market_rates, [[BTC/INR, 1090099.31, 1.0], [BCH/INR, 221399.00, 0.0], [LTC/INR, 20360.01, 0.0]]]]}
+BTC == 7918.6449027365
+BCH == 16253.40759371
+LTC == 9269.0814573918
+Total cash = 33441.1339538383
+BTC difference:: 
+Koinex:1050000.0 Coinome:1090099.31
+BCH difference:: 
+Koinex:219000.0 Coinome:221399.0
+LTC difference:: 
+Koinex:20399.0 Coinome:20360.01
+BTC %inc (k-c) = -3.8189819047619102
+BCH %inc (k-c) = -1.0954337899543378
+LTC %inc (k-c) = 0.19113682043238198
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building tem 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- exec-maven-plugin:1.6.0:java (default-cli) @ tem ---
+opened connection
+opened connection
+{type=welcome}
+{identifier={"channel":"PublicChannel"}, type=confirm_subscription}
+{identifier={"channel":"PublicChannel"}, message=[[market_rates, [[BTC/INR, 1099999.31, 1.0], [BCH/INR, 221399.00, 0.0], [LTC/INR, 20650.00, 1.0]]]]}
+BTC == 7990.5599877365
+BCH == 16253.40759371
+LTC == 9401.102067
+Total cash = 33645.0696484465
+BTC difference:: 
+Koinex:1070000.0 Coinome:1099999.31
+BCH difference:: 
+Koinex:217000.0 Coinome:221399.0
+LTC difference:: 
+Koinex:20449.0 Coinome:20650.0
+BTC %inc (k-c) = -2.8036738317757064
+BCH %inc (k-c) = -2.0271889400921657
+LTC %inc (k-c) = -0.9829331507653185
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building tem 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- exec-maven-plugin:1.6.0:java (default-cli) @ tem ---
+opened connection
+opened connection
+{type=welcome}
+{identifier={"channel":"PublicChannel"}, type=confirm_subscription}
+{identifier={"channel":"PublicChannel"}, message=[[market_rates, [[BTC/INR, 1099999.31, 1.0], [BCH/INR, 227900.00, 1.0], [LTC/INR, 20800.00, 1.0]]]]}
+BTC == 7990.5599877365
+BCH == 16730.660891
+LTC == 9469.390943999999
+Total cash = 34190.6118227365
+BTC difference:: 
+Koinex:1079000.0 Coinome:1099999.31
+BCH difference:: 
+Koinex:216100.0 Coinome:227900.0
+LTC difference:: 
+Koinex:20401.0 Coinome:20800.0
+BTC %inc (k-c) = -1.94618257645969
+BCH %inc (k-c) = -5.460434983803795
+LTC %inc (k-c) = -1.9557864810548502
