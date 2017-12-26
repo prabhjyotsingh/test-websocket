@@ -10,7 +10,6 @@ public class MakeCsvHourly {
         File f = new File("abc.csv");
         try {
             String[] fileContent = FileUtils.readFileToString(f).split("\n");
-            System.out.println(fileContent);
             StringBuilder newFileContent = new StringBuilder(fileContent[0]).append("\n");
             for (int i = 1; i < fileContent.length - 1; i++) {
                 try {
@@ -21,12 +20,10 @@ public class MakeCsvHourly {
                         newFileContent.append(fileContent[i]).append("\n");
                     }
                 } catch (Exception e) {
-//                    System.out.println(e);
                 }
             }
-            System.out.println(newFileContent);
+            FileUtils.write(f,newFileContent);
         } catch (IOException e) {
-//            e.printStackTrace();
         }
 
     }
