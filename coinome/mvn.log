@@ -73,3 +73,28 @@ Koinex:20401.0 Coinome:20800.0
 BTC %inc (k-c) = -1.94618257645969
 BCH %inc (k-c) = -5.460434983803795
 LTC %inc (k-c) = -1.9557864810548502
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building tem 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- exec-maven-plugin:1.6.0:java (default-cli) @ tem ---
+opened connection
+opened connection
+{type=welcome}
+{identifier={"channel":"PublicChannel"}, type=confirm_subscription}
+{identifier={"channel":"PublicChannel"}, message=[[market_rates, [[BTC/INR, 1080000.00, 1.0], [BCH/INR, 224000.00, 1.0], [LTC/INR, 20599.00, 1.0]]]]}
+BTC == 7845.281999999999
+BCH == 16444.35296
+LTC == 9377.88384882
+Total cash = 33667.51880882
+BTC difference:: 
+Koinex:1068999.0 Coinome:1080000.0
+BCH difference:: 
+Koinex:217200.0 Coinome:224000.0
+LTC difference:: 
+Koinex:20402.0 Coinome:20599.0
+BTC %inc (k-c) = -1.0290935725851942
+BCH %inc (k-c) = -3.1307550644567224
+LTC %inc (k-c) = -0.9655916086658171

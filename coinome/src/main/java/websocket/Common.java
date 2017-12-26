@@ -1,5 +1,6 @@
 package websocket;
 
+import mail.SendMail;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -20,21 +21,22 @@ public class Common {
         if (isCoinomeDone && isKoinexDone) {
 
             StringBuilder sb = new StringBuilder("\n");
+            StringBuilder sysout = new StringBuilder("\n");
 //            "date\tk-BTC\tc-BTC\t" +
 //                    "k-BCH\tc-BCH\t" +
 //                    "k-LTC\tc-LTC\n");
 
             sb.append(new Date()).append("\t");
-            System.out.println("BTC difference:: \nKoinex:" +
-                    koinexMap.get("BTC") + " Coinome:" + coinomeMap.get("BTC"));
+            sysout.append("BTC difference:: \nKoinex:" +
+                    koinexMap.get("BTC") + " Coinome:" + coinomeMap.get("BTC")).append("\n");
             sb.append(koinexMap.get("BTC")).append("\t").append(coinomeMap.get("BTC")).append("\t");
 
-            System.out.println("BCH difference:: \nKoinex:" +
-                    koinexMap.get("BCH") + " Coinome:" + coinomeMap.get("BCH"));
+            sysout.append("BCH difference:: \nKoinex:" +
+                    koinexMap.get("BCH") + " Coinome:" + coinomeMap.get("BCH")).append("\n");
             sb.append(koinexMap.get("BCH")).append("\t").append(coinomeMap.get("BCH")).append("\t");
 
-            System.out.println("LTC difference:: \nKoinex:" +
-                    koinexMap.get("LTC") + " Coinome:" + coinomeMap.get("LTC"));
+            sysout.append("LTC difference:: \nKoinex:" +
+                    koinexMap.get("LTC") + " Coinome:" + coinomeMap.get("LTC")).append("\n");
             sb.append(koinexMap.get("LTC")).append("\t").append(coinomeMap.get("LTC")).append("\t");
 
 
@@ -51,10 +53,19 @@ public class Common {
             Double LTCpercent = (koinexMap.get("LTC") - coinomeMap.get("LTC")) /
                     Math.min(koinexMap.get("LTC"), coinomeMap.get("LTC")) * 100;
 
-            System.out.println("BTC %inc (k-c) = " + BTCpercent);
-            System.out.println("BCH %inc (k-c) = " + BCHpercent);
-            System.out.println("LTC %inc (k-c) = " + LTCpercent);
+            sysout.append("BTC %inc (k-c) = " + BTCpercent).append("\n");
+            sysout.append("BCH %inc (k-c) = " + BCHpercent).append("\n");
+            sysout.append("LTC %inc (k-c) = " + LTCpercent).append("\n");
+
+            System.out.println(sysout.toString());
+
+            if (Math.abs(BTCpercent) > 2.9 || Math.abs(BCHpercent) > 2.9 || Math.abs(LTCpercent) > 2.9) {
+                SendMail sm = new SendMail();
+                sm.sendMail(sysout.toString());
+            }
+
             System.exit(0);
         }
     }
+
 }
