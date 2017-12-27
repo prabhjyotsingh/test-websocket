@@ -59,16 +59,14 @@ public class Common {
       DecimalFormat df = new DecimalFormat("##.##");
       sysout.append("BTC %inc (k-c) = " + df.format(BTCpercent)).append("\n");
       sysout.append("BCH %inc (k-c) = " + df.format(BCHpercent)).append("\n");
-      sysout.append("LTC %inc (k-c) = " + df.format(LTCpercent)).append("\n");
-
-      System.out.println(sysout.toString());
+      sysout.append("LTC %inc (k-c) = " + df.format(LTCpercent));
 
 //      if (Math.abs(BTCpercent) > 2.9 || Math.abs(BCHpercent) > 2.9 || Math.abs(LTCpercent) > 2.9) {
       if (Math.abs(LTCpercent) > 2.9) {
         SendMail sm = new SendMail();
         sm.sendMail(sysout.toString());
       }
-
+      System.out.println(sysout.toString());
       System.exit(0);
     }
   }
