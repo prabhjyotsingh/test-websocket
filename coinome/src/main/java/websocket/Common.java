@@ -63,7 +63,8 @@ public class Common {
 
       System.out.println(sysout.toString());
 
-      if (Math.abs(BTCpercent) > 2.9 || Math.abs(BCHpercent) > 2.9 || Math.abs(LTCpercent) > 2.9) {
+//      if (Math.abs(BTCpercent) > 2.9 || Math.abs(BCHpercent) > 2.9 || Math.abs(LTCpercent) > 2.9) {
+      if (Math.abs(LTCpercent) > 2.9) {
         SendMail sm = new SendMail();
         sm.sendMail(sysout.toString());
       }
