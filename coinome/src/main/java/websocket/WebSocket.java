@@ -6,8 +6,6 @@ import websocket.koinex.KoinexWebsocket;
 import java.net.URISyntaxException;
 
 public class WebSocket {
-
-
     public static void main(String[] args) {
         CoinomeWebsocket cws = new CoinomeWebsocket();
         KoinexWebsocket kws = new KoinexWebsocket();

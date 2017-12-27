@@ -1,5 +1,8 @@
 package websocket;
 
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 import mail.SendMail;
 import org.apache.commons.io.FileUtils;
 
@@ -26,7 +29,7 @@ public class Common {
 //                    "k-BCH\tc-BCH\t" +
 //                    "k-LTC\tc-LTC\n");
 
-            sb.append(new Date()).append("\t");
+            sb.append(getCurrentISTTime()).append("\t");
             sysout.append("BTC difference:: \nKoinex:" +
                     koinexMap.get("BTC") + " Coinome:" + coinomeMap.get("BTC")).append("\n");
             sb.append(koinexMap.get("BTC")).append("\t").append(coinomeMap.get("BTC")).append("\t");
@@ -68,4 +71,10 @@ public class Common {
         }
     }
 
+    public static Date getCurrentISTTime() {
+        Calendar cal = Calendar.getInstance(Locale.getDefault());
+        TimeZone.setDefault(TimeZone.getTimeZone("IST"));
+
+        return cal.getTime();
+    }
 }
