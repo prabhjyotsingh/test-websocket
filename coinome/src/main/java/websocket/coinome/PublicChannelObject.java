@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class PublicChannelObject {
 
+  String identifier;
+  ArrayList message;
+
   public String getIdentifier() {
     return identifier;
   }
@@ -19,9 +22,6 @@ public class PublicChannelObject {
   public void setMessage(ArrayList message) {
     this.message = message;
   }
-
-  String identifier;
-  ArrayList message;
 
 
 }

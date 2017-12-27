@@ -43,44 +43,37 @@ import org.java_websocket.util.Charsetfunctions;
 public class CoinomeDraft extends Draft {
 
   /**
+   * Attribute for the reusable random instance
+   */
+  private final Random reuseableRandom = new Random();
+  /**
    * Attribute for the used extension in this draft
    */
   private IExtension extension = new DefaultExtension();
-
   /**
    * Attribute for all available extension in this draft
    */
   private List<IExtension> knownExtensions;
-
   /**
    * Attribute for the used protocol in this draft
    */
   private IProtocol protocol;
-
   /**
    * Attribute for all available protocols in this draft
    */
   private List<IProtocol> knownProtocols;
-
   /**
    * Attribute for the current continuous frame
    */
   private Framedata current_continuous_frame;
-
   /**
    * Attribute for the payload of the current continuous frame
    */
   private List<ByteBuffer> byteBufferList;
-
   /**
    * Attribute for the current incomplete frame
    */
   private ByteBuffer incompleteframe;
-
-  /**
-   * Attribute for the reusable random instance
-   */
-  private final Random reuseableRandom = new Random();
 
   /**
    * Constructor for the websocket protocol specified by RFC 6455 with default extensions

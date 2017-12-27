@@ -1,30 +1,30 @@
 package cleanup;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.io.IOException;
+import org.apache.commons.io.FileUtils;
 
 public class MakeCsvHourly {
-    public static void main(String[] args) {
-        File f = new File("abc.csv");
-        try {
-            String[] fileContent = FileUtils.readFileToString(f).split("\n");
-            StringBuilder newFileContent = new StringBuilder(fileContent[0]).append("\n");
-            for (int i = 1; i < fileContent.length - 1; i++) {
-                try {
-                    String[] content = fileContent[i].split(" ");
-                    String[] newContent = fileContent[i + 1].split(" ");
-                    if (!(content[2].equals(newContent[2]) &&
-                            content[3].split(":")[0].equals(newContent[3].split(":")[0]))) {
-                        newFileContent.append(fileContent[i]).append("\n");
-                    }
-                } catch (Exception e) {
-                }
-            }
-            FileUtils.write(f,newFileContent);
-        } catch (IOException e) {
-        }
 
+  public static void main(String[] args) {
+    File f = new File("abc.csv");
+    try {
+      String[] fileContent = FileUtils.readFileToString(f).split("\n");
+      StringBuilder newFileContent = new StringBuilder(fileContent[0]).append("\n");
+      for (int i = 1; i < fileContent.length - 1; i++) {
+        try {
+          String[] content = fileContent[i].split(" ");
+          String[] newContent = fileContent[i + 1].split(" ");
+          if (!(content[2].equals(newContent[2]) &&
+              content[3].split(":")[0].equals(newContent[3].split(":")[0]))) {
+            newFileContent.append(fileContent[i]).append("\n");
+          }
+        } catch (Exception e) {
+        }
+      }
+      FileUtils.write(f, newFileContent);
+    } catch (IOException e) {
     }
+
+  }
 }
