@@ -19,11 +19,15 @@ public class Common {
 
   public static Map<String, Double> koinexMap = new HashMap<>();
   public static Map<String, Double> coinomeMap = new HashMap<>();
-
+  private static Boolean isExecuted = false;
 
   public static void initiateExit() {
     if (isCoinomeDone && isKoinexDone) {
 
+      if (isExecuted) {
+        return;
+      }
+      isExecuted = true;
       StringBuilder sb = new StringBuilder("\n");
       StringBuilder sysout = new StringBuilder("\n");
 //            "date\tk-BTC\tc-BTC\t" +
