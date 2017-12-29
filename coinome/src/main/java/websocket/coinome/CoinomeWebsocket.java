@@ -43,7 +43,13 @@ public class CoinomeWebsocket {
   }
 
   public void runSocket() throws URISyntaxException {
-    mWs = new WebSocketClient(new URI("wss://www.coinome.com/cable"), new CoinomeDraft(), headers,
+    mWs = createWebSocket();
+    //open websocket
+    mWs.connect();
+  }
+
+  private WebSocketClient createWebSocket() throws URISyntaxException {
+    return new WebSocketClient(new URI("wss://www.coinome.com/cable"), new CoinomeDraft(), headers,
         2000) {
       @Override
       public void onMessage(String message) {
@@ -110,6 +116,12 @@ public class CoinomeWebsocket {
       @Override
       public void onClose(int code, String reason, boolean remote) {
         System.out.println("closed connection");
+        try {
+          isInit = false;
+          mWs = createWebSocket();
+        } catch (URISyntaxException e) {
+        }
+        mWs.connect();
       }
 
       @Override
@@ -118,7 +130,5 @@ public class CoinomeWebsocket {
       }
 
     };
-    //open websocket
-    mWs.connect();
   }
 }

@@ -65,13 +65,20 @@ public class Common {
       sysout.append("BCH %inc (k-c) = " + df.format(BCHpercent)).append("\n");
       sysout.append("LTC %inc (k-c) = " + df.format(LTCpercent));
 
-//      if (Math.abs(BTCpercent) > 2.9 || Math.abs(BCHpercent) > 2.9 || Math.abs(LTCpercent) > 2.9) {
+      //      if (Math.abs(BTCpercent) > 2.9 || Math.abs(BCHpercent) > 2.9 || Math.abs(LTCpercent) > 2.9) {
       if (Math.abs(LTCpercent) > 2.9) {
         SendMail sm = new SendMail();
         sm.sendMail(sysout.toString());
       }
       System.out.println(sysout.toString());
-      System.exit(0);
+
+      //      System.exit(0);
+
+      try {
+        Thread.sleep(300000);
+        isExecuted = false;
+      } catch (InterruptedException e) {
+      }
     }
   }
 
@@ -80,11 +87,5 @@ public class Common {
     TimeZone.setDefault(TimeZone.getTimeZone("IST"));
 
     return cal.getTime();
-  }
-
-  public static void main(String[] args) {
-    Double d = 2.74980340928374098720341;
-    DecimalFormat f = new DecimalFormat("##.##");
-    System.out.println(f.format(d));
   }
 }

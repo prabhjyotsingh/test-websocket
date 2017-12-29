@@ -39,7 +39,12 @@ public class KoinexWebsocket {
   }
 
   public void runSocket() throws URISyntaxException {
-    mWs = new WebSocketClient(new URI("wss://ws-ap2.pusher" +
+    mWs = createWebSocket();
+    mWs.connect();
+  }
+
+  private WebSocketClient createWebSocket() throws URISyntaxException {
+    return new WebSocketClient(new URI("wss://ws-ap2.pusher" +
         ".com/app/9197b0bfdf3f71a4064e?protocol=7&client=js&version=4.1.0&flash=false"),
         new KoinexDraft(),
         headers,
@@ -80,6 +85,12 @@ public class KoinexWebsocket {
       @Override
       public void onClose(int code, String reason, boolean remote) {
         System.out.println("closed connection");
+        try {
+          isInit = false;
+          mWs = createWebSocket();
+        } catch (URISyntaxException e) {
+        }
+        mWs.connect();
       }
 
       @Override
@@ -88,8 +99,6 @@ public class KoinexWebsocket {
       }
 
     };
-    //open websocket
-    mWs.connect();
   }
 }
 
