@@ -22,11 +22,7 @@ public class Common {
   private static Boolean isExecuted = false;
 
   public static void initiateExit() {
-    if (isCoinomeDone && isKoinexDone) {
-
-      if (isExecuted) {
-        return;
-      }
+    if (isCoinomeDone && isKoinexDone && !isExecuted) {
       isExecuted = true;
       StringBuilder sb = new StringBuilder("\n");
       StringBuilder sysout = new StringBuilder("\n");
@@ -66,7 +62,7 @@ public class Common {
       sysout.append("LTC %inc (k-c) = " + df.format(LTCpercent));
 
       //      if (Math.abs(BTCpercent) > 2.9 || Math.abs(BCHpercent) > 2.9 || Math.abs(LTCpercent) > 2.9) {
-      if (Math.abs(LTCpercent) > 2.9) {
+      if (Math.abs(LTCpercent) > 8.0) {
         SendMail sm = new SendMail();
         sm.sendMail(sysout.toString());
       }
