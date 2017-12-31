@@ -23,8 +23,7 @@ public class MakeCsvHourly {
         }
       }
       newFileContent.append(fileContent[fileContent.length-1]).append("\n");
-      System.out.println(newFileContent);
-//      FileUtils.write(f, newFileContent);
+      FileUtils.write(f, newFileContent);
     } catch (IOException e) {
     }
 
