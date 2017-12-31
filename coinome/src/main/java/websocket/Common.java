@@ -1,14 +1,13 @@
 package websocket;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
 import mail.SendMail;
 import org.apache.commons.io.FileUtils;
 
@@ -20,6 +19,8 @@ public class Common {
   public static Map<String, Double> koinexMap = new HashMap<>();
   public static Map<String, Double> coinomeMap = new HashMap<>();
   private static Boolean isExecuted = false;
+  private static Gson gson = new GsonBuilder()
+      .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
 
   public static void initiateExit() {
     if (isCoinomeDone && isKoinexDone && !isExecuted) {
@@ -47,7 +48,6 @@ public class Common {
           koinexMap.get("BCH") + " Coinome:" + coinomeMap.get("BCH")).append("\n");
       sysout.append("BTC difference:: \nKoinex:" +
           koinexMap.get("BTC") + " Coinome:" + coinomeMap.get("BTC")).append("\n");
-
 
       sb.append(getCurrentISTTime()).append("\t");
       sb.append(koinexMap.get("BTC")).append("\t").append(coinomeMap.get("BTC")).append("\t");
@@ -78,10 +78,7 @@ public class Common {
     }
   }
 
-  public static Date getCurrentISTTime() {
-    Calendar cal = Calendar.getInstance(Locale.getDefault());
-    TimeZone.setDefault(TimeZone.getTimeZone("IST"));
-
-    return cal.getTime();
+  public static String getCurrentISTTime() {
+    return gson.toJson(new Date(), Date.class).replaceAll("\"", "");
   }
 }

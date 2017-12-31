@@ -13,16 +13,18 @@ public class MakeCsvHourly {
       StringBuilder newFileContent = new StringBuilder(fileContent[0]).append("\n");
       for (int i = 1; i < fileContent.length - 1; i++) {
         try {
-          String[] content = fileContent[i].split(" ");
-          String[] newContent = fileContent[i + 1].split(" ");
-          if (!(content[2].equals(newContent[2]) &&
-              content[3].split(":")[0].equals(newContent[3].split(":")[0]))) {
+          String[] content = fileContent[i].split("T");
+          String[] newContent = fileContent[i + 1].split("T");
+          if (!(content[0].equals(newContent[0]) &&
+              content[1].split(":")[0].equals(newContent[1].split(":")[0]))) {
             newFileContent.append(fileContent[i]).append("\n");
           }
         } catch (Exception e) {
         }
       }
-      FileUtils.write(f, newFileContent);
+      newFileContent.append(fileContent[fileContent.length-1]).append("\n");
+      System.out.println(newFileContent);
+//      FileUtils.write(f, newFileContent);
     } catch (IOException e) {
     }
 
