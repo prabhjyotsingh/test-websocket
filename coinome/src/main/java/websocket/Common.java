@@ -29,18 +29,29 @@ public class Common {
 //            "date\tk-BTC\tc-BTC\t" +
 //                    "k-BCH\tc-BCH\t" +
 //                    "k-LTC\tc-LTC\n");
+      Double LTCpercent = (koinexMap.get("LTC") - coinomeMap.get("LTC")) /
+          Math.min(koinexMap.get("LTC"), coinomeMap.get("LTC")) * 100;
+      Double BCHpercent = (koinexMap.get("BCH") - coinomeMap.get("BCH")) /
+          Math.min(koinexMap.get("BCH"), coinomeMap.get("BCH")) * 100;
+      Double BTCpercent = (koinexMap.get("BTC") - coinomeMap.get("BTC")) /
+          Math.min(koinexMap.get("BTC"), coinomeMap.get("BTC")) * 100;
 
-      sb.append(getCurrentISTTime()).append("\t");
-      sysout.append("BTC difference:: \nKoinex:" +
-          koinexMap.get("BTC") + " Coinome:" + coinomeMap.get("BTC")).append("\n");
-      sb.append(koinexMap.get("BTC")).append("\t").append(coinomeMap.get("BTC")).append("\t");
-
-      sysout.append("BCH difference:: \nKoinex:" +
-          koinexMap.get("BCH") + " Coinome:" + coinomeMap.get("BCH")).append("\n");
-      sb.append(koinexMap.get("BCH")).append("\t").append(coinomeMap.get("BCH")).append("\t");
+      DecimalFormat df = new DecimalFormat("##.##");
+      sysout.append("LTC %inc (k-c) = " + df.format(LTCpercent)).append("\n");
+      sysout.append("BCH %inc (k-c) = " + df.format(BCHpercent)).append("\n");
+      sysout.append("BTC %inc (k-c) = " + df.format(BTCpercent)).append("\n");
 
       sysout.append("LTC difference:: \nKoinex:" +
           koinexMap.get("LTC") + " Coinome:" + coinomeMap.get("LTC")).append("\n");
+      sysout.append("BCH difference:: \nKoinex:" +
+          koinexMap.get("BCH") + " Coinome:" + coinomeMap.get("BCH")).append("\n");
+      sysout.append("BTC difference:: \nKoinex:" +
+          koinexMap.get("BTC") + " Coinome:" + coinomeMap.get("BTC")).append("\n");
+
+
+      sb.append(getCurrentISTTime()).append("\t");
+      sb.append(koinexMap.get("BTC")).append("\t").append(coinomeMap.get("BTC")).append("\t");
+      sb.append(koinexMap.get("BCH")).append("\t").append(coinomeMap.get("BCH")).append("\t");
       sb.append(koinexMap.get("LTC")).append("\t").append(coinomeMap.get("LTC")).append("\t");
 
       File f = new File("abc.csv");
@@ -49,20 +60,9 @@ public class Common {
       } catch (IOException e) {
 
       }
-      Double BTCpercent = (koinexMap.get("BTC") - coinomeMap.get("BTC")) /
-          Math.min(koinexMap.get("BTC"), coinomeMap.get("BTC")) * 100;
-      Double BCHpercent = (koinexMap.get("BCH") - coinomeMap.get("BCH")) /
-          Math.min(koinexMap.get("BCH"), coinomeMap.get("BCH")) * 100;
-      Double LTCpercent = (koinexMap.get("LTC") - coinomeMap.get("LTC")) /
-          Math.min(koinexMap.get("LTC"), coinomeMap.get("LTC")) * 100;
-
-      DecimalFormat df = new DecimalFormat("##.##");
-      sysout.append("BTC %inc (k-c) = " + df.format(BTCpercent)).append("\n");
-      sysout.append("BCH %inc (k-c) = " + df.format(BCHpercent)).append("\n");
-      sysout.append("LTC %inc (k-c) = " + df.format(LTCpercent));
 
       //      if (Math.abs(BTCpercent) > 2.9 || Math.abs(BCHpercent) > 2.9 || Math.abs(LTCpercent) > 2.9) {
-      if (Math.abs(LTCpercent) > 8.0) {
+      if (LTCpercent < 0.2) {
         SendMail sm = new SendMail();
         sm.sendMail(sysout.toString());
       }
