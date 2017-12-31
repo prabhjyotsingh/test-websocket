@@ -14,7 +14,6 @@ import websocket.Common;
 public class CoinomeWebsocket {
 
   Boolean isInit = false;
-  Boolean isFirst = true;
   WebSocketClient mWs = null;
   HashMap<String, String> headers = new HashMap<String, String>();
   private Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -76,23 +75,17 @@ public class CoinomeWebsocket {
             Double thisPrice = new Double((String) marketRate.get(1));
             switch ((String) marketRate.get(0)) {
               case "BTC/INR":
-                if (isFirst) {
-                  System.out.println("BTC == " + btcBase * thisPrice);
-                }
+                System.out.println("BTC == " + btcBase * thisPrice);
                 totalCash += btcBase * thisPrice;
                 Common.coinomeMap.put("BTC", thisPrice);
                 break;
               case "BCH/INR":
-                if (isFirst) {
-                  System.out.println("BCH == " + bchBase * thisPrice);
-                }
+                System.out.println("BCH == " + bchBase * thisPrice);
                 totalCash += bchBase * thisPrice;
                 Common.coinomeMap.put("BCH", thisPrice);
                 break;
               case "LTC/INR":
-                if (isFirst) {
-                  System.out.println("LTC == " + ltcBase * thisPrice);
-                }
+                System.out.println("LTC == " + ltcBase * thisPrice);
                 totalCash += ltcBase * thisPrice;
                 Common.coinomeMap.put("LTC", thisPrice);
                 break;
@@ -101,10 +94,7 @@ public class CoinomeWebsocket {
           }
 
           Common.isCoinomeDone = true;
-          if (isFirst) {
-            System.out.println("Total cash = " + totalCash);
-          }
-          isFirst = false;
+          System.out.println("Total cash == " + totalCash);
           Common.initiateExit();
         }
 
