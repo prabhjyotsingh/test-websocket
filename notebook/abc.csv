@@ -1,1 +1,3 @@
-%table date	koinex-BTC	coinome-BTC	koinex-BCH	coinome-BCH	koinex-LTC	coinome-LTC	Koinex-XRP-USD	Binance-Xrp-USD	Koinex-ETH-USD	Binance-ETH-USD	Koinex-LTC-USD	Binance-LTC-USD Binance-BHC-USD
+%table date	koinex-BTC	coinome-BTC	koinex-BCH	coinome-BCH	koinex-LTC	coinome-LTC	Koinex-XRP-USD	Binance-Xrp-USD	Koinex-ETH-USD	Binance-ETH-USD	Koinex-LTC-USD	Binance-LTC-USD Binance-BHC-INR
+2018-01-21T13:42:11+0530	885201.0	861000.0	135500.0	137500.0	14276.0	14489.0	1.64	1.38	1248.34	1061.2	223.6	190.8	1774.99	
+2018-01-21T13:44:11+0530	900000.0	862000.0	135003.0	136900.0	14388.0	14485.0	1.65	1.38	1249.74	1063	225.36	190.95	114026.78	
