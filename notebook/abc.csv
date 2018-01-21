@@ -1,2 +1,1 @@
-%table date	k-BTC	c-BTC	k-BCH	c-BCH	k-LTC	c-LTC	Xrp-USD	ETC-USD
-2018-01-21T12:45:02+0530	880000.0	875000.0	135000.0	138001.0	14300.0	14300.0	1.39	1062
+%table date	koinex-BTC	coinome-BTC	koinex-BCH	coinome-BCH	koinex-LTC	coinome-LTC	Koinex-XRP-USD	Binance-Xrp-USD	Koinex-ETH-USD	Binance-ETH-USD	Koinex-LTC-USD	Binance-LTC-USD Binance-BHC-USD
