@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import websocket.binance.BinanceBchUsdtWebsocket;
 import websocket.binance.BinanceBtcUsdtWebsocket;
 import websocket.binance.BinanceEtherUsdtWebsocket;
 import websocket.binance.BinanceLtcUsdtWebsocket;
@@ -22,6 +23,7 @@ public class WebSocket {
     BinanceXrpBtcWebsocket binanceXrpBtcWebsocket = new BinanceXrpBtcWebsocket();
     BinanceEtherUsdtWebsocket binanceEtherUsdtWebsocket = new BinanceEtherUsdtWebsocket();
     BinanceLtcUsdtWebsocket binanceLtcUsdtWebsocket = new BinanceLtcUsdtWebsocket();
+    BinanceBchUsdtWebsocket binanceBchUsdtWebsocket = new BinanceBchUsdtWebsocket();
     try {
 
       String urlToRead = "http://www.xe.com/currencyconverter/convert/?Amount=1&From=INR&To=USD";
@@ -44,6 +46,7 @@ public class WebSocket {
       binanceXrpBtcWebsocket.runSocket();
       binanceEtherUsdtWebsocket.runSocket();
       binanceLtcUsdtWebsocket.runSocket();
+      binanceBchUsdtWebsocket.runSocket();
     } catch (Exception e) {
     }
   }

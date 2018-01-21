@@ -36,15 +36,17 @@ public class Common {
       Double BTCpercent = (koinexMap.get("BTC") - coinomeMap.get("BTC")) /
           Math.min(koinexMap.get("BTC"), coinomeMap.get("BTC")) * 100;
 
-      Double XRPpercent = ((koinexMap.get("XRP") * INR_USD) - (binanceMap.get("XRP_BTC") * binanceMap.get("BTC_USDT"))) /
-          Math.min((koinexMap.get("XRP") * INR_USD), (binanceMap.get("XRP_BTC") * binanceMap.get("BTC_USDT"))) * 100;
+      Double XRPpercent =
+          ((koinexMap.get("XRP") * INR_USD) - (binanceMap.get("XRP_BTC") * binanceMap
+              .get("BTC_USDT"))) /
+              Math.min((koinexMap.get("XRP") * INR_USD),
+                  (binanceMap.get("XRP_BTC") * binanceMap.get("BTC_USDT"))) * 100;
       Double ETHpercent = ((koinexMap.get("ETH") * INR_USD) - (binanceMap.get("ETHER_USDT"))) /
           Math.min((koinexMap.get("ETH") * INR_USD), (binanceMap.get("ETHER_USDT"))) * 100;
       Double LTC_USD_percent = ((koinexMap.get("LTC") * INR_USD) - (binanceMap.get("LTC_USDT"))) /
           Math.min((koinexMap.get("LTC") * INR_USD), (binanceMap.get("LTC_USDT"))) * 100;
       Double BCH_USD_percent = ((koinexMap.get("BCH") * INR_USD) - (binanceMap.get("BCH_USDT"))) /
           Math.min((koinexMap.get("BCH") * INR_USD), (binanceMap.get("BCH_USDT"))) * 100;
-
 
       DecimalFormat df = new DecimalFormat("##.##");
       sysout.append("LTC %inc (k-c) = " + df.format(LTCpercent)).append("\n");
@@ -54,7 +56,6 @@ public class Common {
       sysout.append("ETH %inc (k-b) = " + df.format(ETHpercent)).append("\n");
       sysout.append("LTC %inc (k-b) = " + df.format(LTC_USD_percent)).append("\n");
       sysout.append("BCH %inc (k-b) = " + df.format(BCH_USD_percent)).append("\n");
-
 
       sysout.append("LTC difference:: \nKoinex:" +
           koinexMap.get("LTC") + " Coinome:" + coinomeMap.get("LTC")).append("\n");
@@ -76,7 +77,7 @@ public class Common {
 
       sb.append(df.format(koinexMap.get("LTC") * INR_USD)).append("\t");
       sb.append(df.format(binanceMap.get("LTC_USDT"))).append("\t");
-      sb.append(df.format(binanceMap.get("BCH_USDT"))).append("\t");
+      sb.append(df.format(binanceMap.get("BCH_USDT") / INR_USD)).append("\t");
       File f = new File("abc.csv");
       try {
         FileUtils.write(f, sb.toString(), true);
