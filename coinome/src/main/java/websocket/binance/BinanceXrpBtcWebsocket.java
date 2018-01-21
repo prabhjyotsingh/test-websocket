@@ -1,4 +1,4 @@
-package websocket.koinex;
+package websocket.binance;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -10,31 +10,31 @@ import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 import websocket.Common;
 
-public class KoinexWebsocket {
+public class BinanceXrpBtcWebsocket {
 
-
-  Boolean isInit = false;
   WebSocketClient mWs = null;
   HashMap<String, String> headers = new HashMap<String, String>();
   private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-  public KoinexWebsocket() {
+  public BinanceXrpBtcWebsocket() {
 
+    headers.put("Accept-Encoding", "gzip, deflate, br");
     headers.put("Accept-Encoding", "gzip, deflate, br");
     headers.put("Accept-Language", "en-IN,en;q=0.9,en-GB;q=0.8,en-US;q=0.7,hi;q=0.6");
     headers.put("Cache-Control", "no-cache");
     headers.put("Connection", "Upgrade");
+    headers.put("Cookie",
+        "sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%2216597876%22%2C%22%24device_id%22%3A%22160985f088c169-016a5b3bf1b6d2-16386656-1296000-160985f088d9ad%22%2C%22props%22%3A%7B%22%24latest_referrer%22%3A%22%22%2C%22%24latest_referrer_host%22%3A%22%22%7D%2C%22first_id%22%3A%22160985f088c169-016a5b3bf1b6d2-16386656-1296000-160985f088d9ad%22%7D; _ga=GA1.2.850452319.1515732699");
     headers.put("DNT", "1");
-    headers.put("Host", "ws-ap2.pusher.com");
-    headers.put("Origin", "https://koinex.in");
+    headers.put("Host", "stream2.binance.com:9443");
+    headers.put("Origin", "https://www.binance.com");
     headers.put("Pragma", "no-cache");
     headers.put("Sec-WebSocket-Extensions", "permessage-deflate; client_max_window_bits");
-    headers.put("Sec-WebSocket-Key", "sYpzTo+bRppNm5mPLOykgw==");
+    headers.put("Sec-WebSocket-Key", "Ow1r1nn/L/yzHuSnUM2mqw==");
     headers.put("Sec-WebSocket-Version", "13");
     headers.put("Upgrade", "websocket");
     headers.put("User-Agent",
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) " +
-            "Chrome/63.0.3239.84 Safari/537.36");
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36");
 
   }
 
@@ -44,51 +44,27 @@ public class KoinexWebsocket {
   }
 
   private WebSocketClient createWebSocket() throws URISyntaxException {
-    return new WebSocketClient(new URI("wss://ws-ap2.pusher" +
-        ".com/app/9197b0bfdf3f71a4064e?protocol=7&client=js&version=4.1.0&flash=false"),
-        new KoinexDraft(),
+    return new WebSocketClient(new URI("wss://stream2.binance.com:9443/ws/xrpbtc@kline_1w.b10"),
+        new BinanceDraft(),
         headers,
         2000) {
       @Override
       public void onMessage(String message) {
         Map mapMessage = gson.fromJson(message, Map.class);
 
-        if (!isInit) {
-          isInit = true;
-          Map obj = new HashMap();
-          obj.put("event", "pusher:subscribe");
-          Map data = new HashMap();
-          data.put("channel", "my-channel");
-          obj.put("data", data);
-          message = gson.toJson(obj);
-          mWs.send(message);
-        } else {
-          if (mapMessage.get("event").equals("ticker")) {
-            Map data =
-                (Map) ((Map) gson.fromJson((String) mapMessage.get("data"), Map.class)
-                    .get("message")
-                ).get("data");
-            Common.koinexMap.put("BTC", new Double((String) data.get("BTC")));
-            Common.koinexMap.put("BCH", new Double((String) data.get("BCH")));
-            Common.koinexMap.put("LTC", new Double((String) data.get("LTC")));
-            Common.koinexMap.put("XRP", new Double((String) data.get("XRP")));
-            Common.koinexMap.put("ETH", new Double((String) data.get("ETH")));
-            Common.isKoinexDone = true;
-          }
-        }
-        Common.initiateExit();
+        Double XRP_BTC = new Double((String) ((Map) mapMessage.get("k")).get("c"));
+
+        Common.binanceMap.put("XRP_BTC", XRP_BTC);
       }
 
       @Override
       public void onOpen(ServerHandshake handshake) {
-        System.out.println("opened connection");
       }
 
       @Override
       public void onClose(int code, String reason, boolean remote) {
         System.out.println("closed connection");
         try {
-          isInit = false;
           mWs = createWebSocket();
         } catch (URISyntaxException e) {
         }
