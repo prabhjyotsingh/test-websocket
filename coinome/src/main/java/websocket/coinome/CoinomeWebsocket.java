@@ -65,35 +65,22 @@ public class CoinomeWebsocket {
 
             ArrayList<ArrayList> marketRatesArray = (ArrayList<ArrayList>) marketRates.get(1);
 
-            Double btcBase = 0.00726415;
-            Double ltcBase = 0.45525918;
-            Double bchBase = 0.07341229;
-            Double totalCash = 0.0;
-
             for (ArrayList rate : marketRatesArray) {
               Double thisPrice = new Double((String) rate.get(1));
               switch ((String) rate.get(0)) {
                 case "BTC/INR":
-                  System.out.println("BTC == " + btcBase * thisPrice);
-                  totalCash += btcBase * thisPrice;
                   Common.coinomeMap.put("BTC", thisPrice);
                   break;
                 case "BCH/INR":
-                  System.out.println("BCH == " + bchBase * thisPrice);
-                  totalCash += bchBase * thisPrice;
                   Common.coinomeMap.put("BCH", thisPrice);
                   break;
                 case "LTC/INR":
-                  System.out.println("LTC == " + ltcBase * thisPrice);
-                  totalCash += ltcBase * thisPrice;
                   Common.coinomeMap.put("LTC", thisPrice);
                   break;
               }
 
             }
-
             Common.isCoinomeDone = true;
-            System.out.println("Total cash == " + totalCash);
             Common.initiateExit();
           }
         }

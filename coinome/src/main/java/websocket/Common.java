@@ -50,6 +50,22 @@ public class Common {
         Double BCH_USD_percent = ((koinexMap.get("BCH") * INR_USD) - (binanceMap.get("BCH_USDT"))) /
           Math.min((koinexMap.get("BCH") * INR_USD), (binanceMap.get("BCH_USDT"))) * 100;
 
+
+        //Print Coinome
+        {
+          Double btcBase = 0.00726415;
+          Double ltcBase = 0.45525918;
+          Double bchBase = 0.07341229;
+          Double totalCash = 0.0;
+          totalCash += btcBase * Common.coinomeMap.get("BTC");
+          totalCash += bchBase * Common.coinomeMap.get("BCH");
+          totalCash += ltcBase * Common.coinomeMap.get("LTC");
+          System.out.println("BTC == " + btcBase * Common.coinomeMap.get("BTC"));
+          System.out.println("BCH == " + bchBase * Common.coinomeMap.get("BCH"));
+          System.out.println("LTC == " + ltcBase * Common.coinomeMap.get("LTC"));
+          System.out.println("Total cash == " + totalCash);
+        }
+
         DecimalFormat df = new DecimalFormat("##.##");
         sysout.append("LTC %inc (k-c) = " + df.format(LTCpercent)).append("\n");
         sysout.append("BCH %inc (k-c) = " + df.format(BCHpercent)).append("\n");
