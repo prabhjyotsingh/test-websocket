@@ -23,6 +23,9 @@ public class Common {
   private static Boolean isExecuted = false;
   private static Gson gson = new GsonBuilder()
     .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
+  static Double btcBase = 0.00726415;
+  static Double ltcBase = 0.45525918;
+  static Double bchBase = 0.07341229;
 
   public static void initiateExit() {
     if (isCoinomeDone && isKoinexDone && !isExecuted) {
@@ -53,17 +56,14 @@ public class Common {
 
         //Print Coinome
         {
-          Double btcBase = 0.00726415;
-          Double ltcBase = 0.45525918;
-          Double bchBase = 0.07341229;
           Double totalCash = 0.0;
           totalCash += btcBase * Common.coinomeMap.get("BTC");
           totalCash += bchBase * Common.coinomeMap.get("BCH");
           totalCash += ltcBase * Common.coinomeMap.get("LTC");
-          System.out.println("BTC == " + btcBase * Common.coinomeMap.get("BTC"));
-          System.out.println("BCH == " + bchBase * Common.coinomeMap.get("BCH"));
-          System.out.println("LTC == " + ltcBase * Common.coinomeMap.get("LTC"));
-          System.out.println("Total cash == " + totalCash);
+          sysout.append("BTC == " + btcBase * Common.coinomeMap.get("BTC")).append("\n");
+          sysout.append("BCH == " + bchBase * Common.coinomeMap.get("BCH")).append("\n");
+          sysout.append("LTC == " + ltcBase * Common.coinomeMap.get("LTC")).append("\n");
+          sysout.append("Total cash == " + totalCash).append("\n");
         }
 
         DecimalFormat df = new DecimalFormat("##.##");
@@ -110,7 +110,10 @@ public class Common {
         }
         System.out.println(sysout.toString());
       } catch (Exception e) {
-        System.out.println(e);
+        e.printStackTrace();
+        System.out.println("==========================================");
+        System.out.println(e.getStackTrace());
+        System.out.println("==========================================");
       }
 
       try {
