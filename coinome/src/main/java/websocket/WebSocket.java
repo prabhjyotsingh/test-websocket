@@ -1,18 +1,15 @@
 package websocket;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import websocket.binance.*;
+import websocket.coinome.CoinomeWebsocket;
+import websocket.koinex.KoinexWebsocket;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import websocket.binance.BinanceBchUsdtWebsocket;
-import websocket.binance.BinanceBtcUsdtWebsocket;
-import websocket.binance.BinanceEtherUsdtWebsocket;
-import websocket.binance.BinanceLtcUsdtWebsocket;
-import websocket.binance.BinanceXrpBtcWebsocket;
-import websocket.coinome.CoinomeWebsocket;
-import websocket.koinex.KoinexWebsocket;
 
 public class WebSocket {
 
