@@ -5,17 +5,18 @@ import com.google.gson.GsonBuilder;
 import com.neovisionaries.ws.client.WebSocket;
 import com.neovisionaries.ws.client.WebSocketAdapter;
 import com.neovisionaries.ws.client.WebSocketFrame;
-import websocket.Common;
-
 import java.net.URISyntaxException;
 import java.util.Map;
+import websocket.Common;
 
 public class BinanceEtherUsdtWebsocket {
+
   private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
   public void runSocket() throws URISyntaxException {
     try {
-      final WebSocket ws = BinanceCommon.getWebSocket("wss://stream2.binance.com:9443/ws/ethusdt@kline_1w.b10");
+      final WebSocket ws = BinanceCommon
+          .getWebSocket("wss://stream2.binance.com:9443/ws/ethusdt@kline_1w.b10");
 
       ws.addListener(new WebSocketAdapter() {
         @Override
@@ -27,8 +28,9 @@ public class BinanceEtherUsdtWebsocket {
           Common.binanceMap.put("ETHER_USDT", ETHER_USDT);
         }
 
-        public void onDisconnected(WebSocket websocket, WebSocketFrame serverCloseFrame, WebSocketFrame
-          clientCloseFrame, boolean closedByServer) throws Exception {
+        public void onDisconnected(WebSocket websocket, WebSocketFrame serverCloseFrame,
+            WebSocketFrame
+                clientCloseFrame, boolean closedByServer) throws Exception {
           ws.connect();
         }
 

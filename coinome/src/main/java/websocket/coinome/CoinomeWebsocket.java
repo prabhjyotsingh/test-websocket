@@ -2,15 +2,14 @@ package websocket.coinome;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.handshake.ServerHandshake;
-import websocket.Common;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
+import websocket.Common;
 
 public class CoinomeWebsocket {
 
@@ -32,8 +31,9 @@ public class CoinomeWebsocket {
     headers.put("Sec-WebSocket-Key", "nU6wBFWYvinQTLSxGv+d1A==");
     headers.put("Sec-WebSocket-Version", "13");
     headers.put("Upgrade", "websocket");
-    headers.put("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) " +
-      "Chrome/64.0.3282.167 Safari/537.36");
+    headers.put("User-Agent",
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) " +
+            "Chrome/64.0.3282.167 Safari/537.36");
     headers.put("Sec-WebSocket-Protocol", "actioncable-v1-json, actioncable-unsupported");
     headers.put("Wec-WebSocket-Accept", "QOBzphvTMhcBuD8PdfwnD78MurE=");
   }
@@ -45,8 +45,9 @@ public class CoinomeWebsocket {
 
   private WebSocketClient createWebSocket() throws URISyntaxException {
     return new WebSocketClient(new URI("wss://ws-ap2.pusher" +
-      ".com/app/589dd441f02189a2372f?protocol=7&client=js&version=4.2.2&flash=false"), new CoinomeDraft(), headers,
-      2000) {
+        ".com/app/589dd441f02189a2372f?protocol=7&client=js&version=4.2.2&flash=false"),
+        new CoinomeDraft(), headers,
+        2000) {
       @Override
       public void onMessage(String message) {
         Map mapMessage = gson.fromJson(message, Map.class);
@@ -59,9 +60,8 @@ public class CoinomeWebsocket {
         } else if (mapMessage.get("event").equals("ticker")) {
 
           ArrayList marketRates = (ArrayList) gson.fromJson((String) mapMessage.get("data"),
-            PublicChannelObject.class).getMessage().get(0);
+              PublicChannelObject.class).getMessage().get(0);
           if (marketRates.get(0).equals("market_rates")) {
-
 
             ArrayList<ArrayList> marketRatesArray = (ArrayList<ArrayList>) marketRates.get(1);
 
