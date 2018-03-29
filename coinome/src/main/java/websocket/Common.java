@@ -2,13 +2,14 @@ package websocket;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.io.FileUtils;
 
 public class Common {
 
@@ -112,15 +113,23 @@ public class Common {
         System.out.println("==========================================");
         System.out.println(e.getStackTrace());
         System.out.println("==========================================");
-      }
 
-      try {
-        Thread.sleep(300000);
+        threadSleep(60 * 1000);
         isExecuted = false;
-      } catch (InterruptedException e1) {
-
+        return;
       }
 
+      threadSleep(5 * 60 * 1000);
+      isExecuted = false;
+
+    }
+  }
+
+  public static void threadSleep(long millis) {
+    try {
+      Thread.sleep(millis);
+      isExecuted = false;
+    } catch (InterruptedException e1) {
 
     }
   }

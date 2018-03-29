@@ -40,13 +40,13 @@ public class WebSocket {
       Document doc = Jsoup.parse(html.toString());
       Common.INR_USD = new Double(doc.getElementsByClass("uccResultAmount").first().text());
 
-      cws.runSocket();
-      kws.runSocket();
       binanceWebsocket.runSocket();
       binanceXrpBtcWebsocket.runSocket();
       binanceEtherUsdtWebsocket.runSocket();
       binanceLtcUsdtWebsocket.runSocket();
       binanceBchUsdtWebsocket.runSocket();
+      kws.runSocket();
+      cws.runSocket();
     } catch (Exception e) {
     }
   }

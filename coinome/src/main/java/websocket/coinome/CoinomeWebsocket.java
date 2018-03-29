@@ -2,14 +2,22 @@ package websocket.coinome;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import websocket.Common;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.handshake.ServerHandshake;
-import websocket.Common;
 
 public class CoinomeWebsocket {
 
@@ -38,9 +46,71 @@ public class CoinomeWebsocket {
     headers.put("Wec-WebSocket-Accept", "QOBzphvTMhcBuD8PdfwnD78MurE=");
   }
 
-  public void runSocket() throws URISyntaxException {
-    mWs = createWebSocket();
-    mWs.connect();
+  public void runSocket() {
+    runViaHTML();
+  }
+
+  private void runViaWebSocket() {
+    try {
+      mWs = createWebSocket();
+      mWs.connect();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+    }
+  }
+
+
+  public void runViaHTML() {
+    (new Thread() {
+      public void run() {
+        while (true) {
+          Common.isCoinomeDone = false;
+          Common.coinomeMap = new HashMap<>();
+          while (Common.coinomeMap.size() != 3) {
+            try {
+              fillDetails();
+            } catch (Exception e) {
+              e.printStackTrace();
+              Common.threadSleep(60 * 1000);
+            }
+          }
+
+          Common.isCoinomeDone = true;
+          Common.initiateExit();
+          Common.threadSleep(2 * 60 * 1000);
+        }
+      }
+    }).start();
+  }
+
+
+  private void fillDetails() throws Exception {
+    String urlToRead = "https://www.coinome.com/exchange/ltc-inr";
+    StringBuilder html = new StringBuilder();
+    URL url = new URL(urlToRead);
+    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    conn.setRequestMethod("GET");
+    BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+    String line;
+    while ((line = rd.readLine()) != null) {
+      html.append(line);
+    }
+    rd.close();
+    Document doc = Jsoup.parse(html.toString());
+
+    for (Element element : doc.getElementsByClass("module-group").get(1)
+        .getElementsByClass("module")) {
+      Double thisPrice = new Double(element.text().split("INR")[1].replaceAll(",", ""));
+      if (element.text().contains("BTC")) {
+        Common.coinomeMap.put("BTC", thisPrice);
+      }
+      if (element.text().contains("BCH")) {
+        Common.coinomeMap.put("BCH", thisPrice);
+      }
+      if (element.text().contains("LTC")) {
+        Common.coinomeMap.put("LTC", thisPrice);
+      }
+    }
   }
 
   private WebSocketClient createWebSocket() throws URISyntaxException {
