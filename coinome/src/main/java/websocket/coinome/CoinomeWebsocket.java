@@ -100,15 +100,17 @@ public class CoinomeWebsocket {
 
     for (Element element : doc.getElementsByClass("module-group").get(1)
         .getElementsByClass("module")) {
-      Double thisPrice = new Double(element.text().split("INR")[1].replaceAll(",", ""));
-      if (element.text().contains("BTC")) {
-        Common.coinomeMap.put("BTC", thisPrice);
-      }
-      if (element.text().contains("BCH")) {
-        Common.coinomeMap.put("BCH", thisPrice);
-      }
-      if (element.text().contains("LTC")) {
-        Common.coinomeMap.put("LTC", thisPrice);
+      if(element.text().contains("INR")) {
+        Double thisPrice = new Double(element.text().split("INR")[1].replaceAll(",", ""));
+        if (element.text().contains("BTC")) {
+          Common.coinomeMap.put("BTC", thisPrice);
+        }
+        if (element.text().contains("BCH")) {
+          Common.coinomeMap.put("BCH", thisPrice);
+        }
+        if (element.text().contains("LTC")) {
+          Common.coinomeMap.put("LTC", thisPrice);
+        }
       }
     }
   }

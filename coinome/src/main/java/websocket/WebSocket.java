@@ -26,7 +26,7 @@ public class WebSocket {
     BinanceBchUsdtWebsocket binanceBchUsdtWebsocket = new BinanceBchUsdtWebsocket();
     try {
 
-      String urlToRead = "http://www.xe.com/currencyconverter/convert/?Amount=1&From=INR&To=USD";
+      String urlToRead = "https://www.xe.com/currencyconverter/convert/?Amount=1&From=INR&To=USD";
       StringBuilder html = new StringBuilder();
       URL url = new URL(urlToRead);
       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
