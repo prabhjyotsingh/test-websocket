@@ -44,8 +44,8 @@ public class KoinexWebsocket {
   }
 
   private WebSocketClient createWebSocket() throws URISyntaxException {
-    return new WebSocketClient(new URI("wss://ws-ap2.pusher" +
-        ".com/app/9197b0bfdf3f71a4064e?protocol=7&client=js&version=4.1.0&flash=false"),
+    return new WebSocketClient(new URI("wss://ws-ap2.pusher.com/app/"
+        + "9197b0bfdf3f71a4064e?protocol=7&client=js&version=4.1.0&flash=false"),
         new KoinexDraft(),
         headers,
         2000) {
@@ -58,21 +58,21 @@ public class KoinexWebsocket {
           Map obj = new HashMap();
           obj.put("event", "pusher:subscribe");
           Map data = new HashMap();
-          data.put("channel", "my-channel");
+          data.put("channel", "my-channel-ticker-inr");
           obj.put("data", data);
           message = gson.toJson(obj);
           mWs.send(message);
         } else {
-          if (mapMessage.get("event").equals("ticker")) {
+          if (mapMessage.get("event").equals("my-event-ticker-inr")) {
             Map data =
                 (Map) ((Map) gson.fromJson((String) mapMessage.get("data"), Map.class)
                     .get("message")
                 ).get("data");
-            Common.koinexMap.put("BTC", new Double((String) data.get("BTC")));
-            Common.koinexMap.put("BCH", new Double((String) data.get("BCH")));
-            Common.koinexMap.put("LTC", new Double((String) data.get("LTC")));
-            Common.koinexMap.put("XRP", new Double((String) data.get("XRP")));
-            Common.koinexMap.put("ETH", new Double((String) data.get("ETH")));
+            Common.koinexMap.put("BTC", (Double) ((Map) data.get("BTC")).get("last_traded_price"));
+            Common.koinexMap.put("BCH", (Double) ((Map) data.get("BCH")).get("last_traded_price"));
+            Common.koinexMap.put("LTC", (Double) ((Map) data.get("LTC")).get("last_traded_price"));
+            Common.koinexMap.put("XRP", (Double) ((Map) data.get("XRP")).get("last_traded_price"));
+            Common.koinexMap.put("ETH", (Double) ((Map) data.get("ETH")).get("last_traded_price"));
             Common.isKoinexDone = true;
           }
         }
