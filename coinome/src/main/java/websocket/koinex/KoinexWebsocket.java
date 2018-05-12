@@ -68,11 +68,16 @@ public class KoinexWebsocket {
                 (Map) ((Map) gson.fromJson((String) mapMessage.get("data"), Map.class)
                     .get("message")
                 ).get("data");
-            Common.koinexMap.put("BTC", (Double) ((Map) data.get("BTC")).get("last_traded_price"));
-            Common.koinexMap.put("BCH", (Double) ((Map) data.get("BCH")).get("last_traded_price"));
-            Common.koinexMap.put("LTC", (Double) ((Map) data.get("LTC")).get("last_traded_price"));
-            Common.koinexMap.put("XRP", (Double) ((Map) data.get("XRP")).get("last_traded_price"));
-            Common.koinexMap.put("ETH", (Double) ((Map) data.get("ETH")).get("last_traded_price"));
+            Common.koinexMap
+                .put("BTC", new Double((String) ((Map) data.get("BTC")).get("last_traded_price")));
+            Common.koinexMap
+                .put("BCH", new Double((String) ((Map) data.get("BCH")).get("last_traded_price")));
+            Common.koinexMap
+                .put("LTC", new Double((String) ((Map) data.get("LTC")).get("last_traded_price")));
+            Common.koinexMap
+                .put("XRP", new Double((String) ((Map) data.get("XRP")).get("last_traded_price")));
+            Common.koinexMap
+                .put("ETH", new Double((String) ((Map) data.get("ETH")).get("last_traded_price")));
             Common.isKoinexDone = true;
           }
         }
