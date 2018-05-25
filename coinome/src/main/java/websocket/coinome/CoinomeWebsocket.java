@@ -2,13 +2,6 @@ package websocket.coinome;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.handshake.ServerHandshake;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import websocket.Common;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -18,6 +11,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import websocket.Common;
 
 public class CoinomeWebsocket {
 
@@ -66,9 +65,12 @@ public class CoinomeWebsocket {
         while (true) {
           Common.isCoinomeDone = false;
           Common.coinomeMap = new HashMap<>();
+          Common.coinomeMap.clear();
           while (Common.coinomeMap.size() != 3) {
             try {
-              fillDetails();
+              fillDetails("ltc");
+              fillDetails("BTC");
+              fillDetails("BCH");
             } catch (Exception e) {
               e.printStackTrace();
               Common.threadSleep(60 * 1000);
@@ -84,8 +86,8 @@ public class CoinomeWebsocket {
   }
 
 
-  private void fillDetails() throws Exception {
-    String urlToRead = "https://www.coinome.com/exchange/ltc-inr";
+  private void fillDetails(String type) throws Exception {
+    String urlToRead = "https://www.coinome.com/exchange/" + type + "-inr";
     StringBuilder html = new StringBuilder();
     URL url = new URL(urlToRead);
     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -100,8 +102,9 @@ public class CoinomeWebsocket {
 
     for (Element element : doc.getElementsByClass("module-group").get(1)
         .getElementsByClass("module")) {
-      if(element.text().contains("INR")) {
-        Double thisPrice = new Double(element.text().split("INR")[1].replaceAll(",", ""));
+      if (element.text().contains("INR")) {
+        Double thisPrice = new Double(
+            element.text().split("INR")[2].split(" ")[1].replaceAll(",", ""));
         if (element.text().contains("BTC")) {
           Common.coinomeMap.put("BTC", thisPrice);
         }
