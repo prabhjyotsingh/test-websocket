@@ -97,13 +97,13 @@ public class CoinomeWebsocket {
     ArrayList rateList = (ArrayList) gson.fromJson(html.toString(), Map.class).get("INR");
     for (Object rate : rateList) {
       Map r = (Map) rate;
-      if (((String)r.get("market")).equalsIgnoreCase("BTC/INR")) {
+      if (((String) r.get("market")).equalsIgnoreCase("BTC/INR")) {
         Common.coinomeMap.put("BTC", new Double((String) r.get("last")));
       }
-      if (((String)r.get("market")).equalsIgnoreCase("BCH/INR")) {
+      if (((String) r.get("market")).equalsIgnoreCase("BCH/INR")) {
         Common.coinomeMap.put("BCH", new Double((String) r.get("last")));
       }
-      if (((String)r.get("market")).equalsIgnoreCase("LTC/INR")) {
+      if (((String) r.get("market")).equalsIgnoreCase("LTC/INR")) {
         Common.coinomeMap.put("LTC", new Double((String) r.get("last")));
       }
 
