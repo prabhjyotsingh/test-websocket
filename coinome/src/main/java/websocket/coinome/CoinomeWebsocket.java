@@ -13,9 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import websocket.Common;
 
 public class CoinomeWebsocket {
@@ -68,9 +65,7 @@ public class CoinomeWebsocket {
           Common.coinomeMap.clear();
           while (Common.coinomeMap.size() != 3) {
             try {
-              fillDetails("ltc");
-              fillDetails("BTC");
-              fillDetails("BCH");
+              fillDetails();
             } catch (Exception e) {
               e.printStackTrace();
               Common.threadSleep(60 * 1000);
@@ -86,8 +81,8 @@ public class CoinomeWebsocket {
   }
 
 
-  private void fillDetails(String type) throws Exception {
-    String urlToRead = "https://www.coinome.com/exchange/" + type + "-inr";
+  private void fillDetails() throws Exception {
+    String urlToRead = "https://www.coinome.com/markets.json";
     StringBuilder html = new StringBuilder();
     URL url = new URL(urlToRead);
     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -98,24 +93,39 @@ public class CoinomeWebsocket {
       html.append(line);
     }
     rd.close();
-    Document doc = Jsoup.parse(html.toString());
 
-    for (Element element : doc.getElementsByClass("module-group").get(1)
-        .getElementsByClass("module")) {
-      if (element.text().contains("INR")) {
-        Double thisPrice = new Double(
-            element.text().split("INR")[2].split(" ")[1].replaceAll(",", ""));
-        if (element.text().contains("BTC")) {
-          Common.coinomeMap.put("BTC", thisPrice);
-        }
-        if (element.text().contains("BCH")) {
-          Common.coinomeMap.put("BCH", thisPrice);
-        }
-        if (element.text().contains("LTC")) {
-          Common.coinomeMap.put("LTC", thisPrice);
-        }
+    ArrayList rateList = (ArrayList) gson.fromJson(html.toString(), Map.class).get("INR");
+    for (Object rate : rateList) {
+      Map r = (Map) rate;
+      if (((String)r.get("market")).equalsIgnoreCase("BTC/INR")) {
+        Common.coinomeMap.put("BTC", new Double((String) r.get("last")));
       }
+      if (((String)r.get("market")).equalsIgnoreCase("BCH/INR")) {
+        Common.coinomeMap.put("BCH", new Double((String) r.get("last")));
+      }
+      if (((String)r.get("market")).equalsIgnoreCase("LTC/INR")) {
+        Common.coinomeMap.put("LTC", new Double((String) r.get("last")));
+      }
+
     }
+//    Document doc = Jsoup.parse(html.toString());
+//
+//    for (Element element : doc.getElementsByClass("module-group").get(1)
+//        .getElementsByClass("module")) {
+//      if (element.text().contains("INR")) {
+//        Double thisPrice = new Double(
+//            element.text().split("INR")[2].split(" ")[1].replaceAll(",", ""));
+//        if (element.text().contains("BTC")) {
+//          Common.coinomeMap.put("BTC", thisPrice);
+//        }
+//        if (element.text().contains("BCH")) {
+//          Common.coinomeMap.put("BCH", thisPrice);
+//        }
+//        if (element.text().contains("LTC")) {
+//          Common.coinomeMap.put("LTC", thisPrice);
+//        }
+//      }
+//    }
   }
 
   private WebSocketClient createWebSocket() throws URISyntaxException {
